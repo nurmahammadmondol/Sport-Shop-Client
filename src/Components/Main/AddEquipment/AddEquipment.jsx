@@ -47,7 +47,7 @@ const AddEquipment = () => {
     };
 
     fetch(
-      'https://sports-equipment-store-server-site.vercel.app/All_Accessories',
+      'http://localhost:1000/All_Accessories',
       {
         method: 'POST',
         headers: {

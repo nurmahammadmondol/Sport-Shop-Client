@@ -33,7 +33,7 @@ const MyEquipment = () => {
     }).then(result => {
       if (result.isConfirmed) {
         fetch(
-          `https://sports-equipment-store-server-site.vercel.app/All_Accessories/${ID}`,
+          `http://localhost:1000/All_Accessories/${ID}`,
           {
             method: 'DELETE',
           }

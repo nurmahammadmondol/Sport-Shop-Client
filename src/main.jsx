@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         element: <Products></Products>,
         loader: () =>
           fetch(
-            'https://sports-equipment-store-server-site.vercel.app/All_Accessories'
+            'http://localhost:1000/All_Accessories'
           ),
       },
       {
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
         ),
         loader: () =>
           fetch(
-            'https://sports-equipment-store-server-site.vercel.app/All_Accessories'
+            'http://localhost:1000/All_Accessories'
           ),
       },
       {
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `https://sports-equipment-store-server-site.vercel.app/All_Accessories/${params.id}`
+            `http://localhost:1000/All_Accessories/${params.id}`
           ),
       },
       {
@@ -85,7 +85,7 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `https://sports-equipment-store-server-site.vercel.app/All_Accessories/${params.id}`
+            `http://localhost:1000/All_Accessories/${params.id}`
           ),
       },
       {

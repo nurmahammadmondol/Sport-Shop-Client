@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     fetch(
-      'https://sports-equipment-store-server-site.vercel.app/All_Accessories'
+      'http://localhost:1000/All_Accessories'
     )
       .then(res => res.json())
       .then(data => {

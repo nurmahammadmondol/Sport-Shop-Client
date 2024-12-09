@@ -12,7 +12,7 @@ https://peaceful-rugelach-3344c1.netlify.app
 
 ### Server Site:
 
-https://sports-equipment-store-server-site.vercel.app/All_Accessories
+http://localhost:1000/All_Accessories
 
 **ProPlay Accessories** is a responsive e-commerce platform designed for sports
 enthusiasts to browse, purchase, and manage sports equipment. With intuitive

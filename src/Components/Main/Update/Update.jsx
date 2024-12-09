@@ -52,7 +52,7 @@ const Update = () => {
     console.log(_id);
 
     fetch(
-      `https://sports-equipment-store-server-site.vercel.app/All_Accessories/${_id}`,
+      `http://localhost:1000/All_Accessories/${_id}`,
       {
         method: 'PUT',
         headers: {
