@@ -1,11 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link, useLoaderData } from 'react-router-dom';
+import { AuthContent } from '../../Provider/AuthProvider';
 
 const Products = () => {
   const loadAll_Accessory = useLoaderData();
   const [AllSportsEquipment, setAllSportsEquipment] =
     useState(loadAll_Accessory);
+
+  const { User } = useContext(AuthContent);
 
   const handleSortLowestPrice = () => {
     const sortedDataAcc = [...AllSportsEquipment].sort(
@@ -65,11 +68,19 @@ const Products = () => {
                   <td>{singleProduct.Price}$</td>
 
                   <td>
-                    <Link to={`/Details/${singleProduct._id}`}>
-                      <button className="btn btn-xs rounded-none bg-[#4478a7] text-white w-full ">
-                        View Details
-                      </button>
-                    </Link>
+                    {User ? (
+                      <Link to={`/Details/${singleProduct._id}`}>
+                        <button className="btn btn-xs rounded-none bg-[#4478a7] text-white w-full ">
+                          View Details
+                        </button>
+                      </Link>
+                    ) : (
+                      <Link to="/Login">
+                        <button className="btn btn-xs rounded-none bg-[#4478a7] text-white w-full ">
+                          View Details
+                        </button>
+                      </Link>
+                    )}
                   </td>
                 </tr>
               ))}
