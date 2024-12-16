@@ -2,10 +2,17 @@ import React, { useState } from 'react';
 import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import BG from '../../../assets/Photo/bg.png';
 import { Helmet } from 'react-helmet';
+import CardPaymentModal from '../../../share/CardPaymentModal';
 
 const Details = () => {
   const loadRealIdDetails = useLoaderData();
   const [details, setDetails] = useState(loadRealIdDetails);
+
+
+   const[value,setValue] = useState()
+
+
+  
 
   const navigate = useNavigate();
 
@@ -27,7 +34,16 @@ const Details = () => {
     UserName,
     UserEmail,
   } = details;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+    setValue(details)
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div
       className=""
@@ -37,6 +53,8 @@ const Details = () => {
         backgroundSize: 'cover',
       }}
     >
+
+<CardPaymentModal isOpen={isModalOpen} onClose={closeModal} value={value}  />
       <div>
         <Helmet>
           <title>ProPlay Accessories || Details</title>
@@ -102,6 +120,11 @@ const Details = () => {
                 {Description}
               </small>
             </div>
+            <div className="pt-2 h-screen">
+      <button onClick={openModal} className="px-6 py-1 bg-blue-600 text-white font-semibold text-lg rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+        Pay
+      </button>
+    </div>
           </div>
         </div>
       </div>
