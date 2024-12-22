@@ -1,16 +1,27 @@
-import React from 'react';
-import Typewriter from 'typewriter-effect';
-import BannerImage3 from '../../../assets/Photo/Banner3.jpg';
-import { Link } from 'react-router-dom';
-
+import React from "react";
+import Typewriter from "typewriter-effect";
+import BannerImage3 from "../../../assets/Photo/Banner3.jpg";
+import { Link } from "react-router-dom";
+import { FaWhatsapp } from "react-icons/fa";
 const Banner = () => {
+  const redirectToWhatsApp = () => {
+    const phoneNumber = "01738592726"; // Replace with your WhatsApp number
+    const message = "Hello, I have an inquiry!"; // Replace with your default message
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    // Redirect the user to WhatsApp
+    window.open(whatsappURL, "_blank");
+  };
+
   return (
     <div
       className="h-full md:h-[500px] w-full "
       style={{
         backgroundImage: `url(${BannerImage3})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
         // opacity: 0.7,
       }}
     >
@@ -25,7 +36,7 @@ const Banner = () => {
           <Typewriter
             options={{
               strings: [
-                'Step into a world of premium sports accessories with ProPlayAccessories. Whether you’re training, competing, or staying fit, we provide gear that enhances performance and ensures comfort. From protective equipment to stylish active wear, explore a collection crafted to help you achieve your goals. ',
+                "Step into a world of premium sports accessories with ProPlayAccessories. Whether you’re training, competing, or staying fit, we provide gear that enhances performance and ensures comfort. From protective equipment to stylish active wear, explore a collection crafted to help you achieve your goals. ",
               ],
 
               autoStart: true,
@@ -50,6 +61,15 @@ const Banner = () => {
             Shop Now
           </button>
         </Link>
+        <div className="fixed bottom-5 right-5">
+          <button
+            onClick={redirectToWhatsApp}
+            className="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors duration-300"
+            aria-label="Chat on WhatsApp"
+          >
+            <FaWhatsapp size={24} />
+          </button>
+        </div>
       </div>
     </div>
   );
