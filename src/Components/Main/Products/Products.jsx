@@ -102,8 +102,8 @@ const Products = () => {
               onChange={(e) => setStockStatusFilter(e.target.value)}
             >
               <option value="All">All</option>
-              <option value="True">Customize</option>
-              <option value="False">None</option>
+              <option value="Ture">Stock In</option>
+              <option value="False">Sold Out</option>
             </select>
           </label>
         </div>
