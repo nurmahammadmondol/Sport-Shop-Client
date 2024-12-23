@@ -1,6 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import nagad from "../assets/Photo/nagad.png";
+import bkash from "../assets/Photo/bkash.png";
+import dach from "../assets/Photo/dach.jpg";
 const CardPaymentModal = ({ isOpen, onClose, value }) => {
   console.log(value);
   const {
@@ -8,6 +12,8 @@ const CardPaymentModal = ({ isOpen, onClose, value }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log("Payment Data: ", data);
@@ -18,7 +24,9 @@ const CardPaymentModal = ({ isOpen, onClose, value }) => {
       icon: "success",
       confirmButtonText: "OK",
     }).then(() => {
-      onClose(); // Close the modal after the alert
+      // Replace 'data.id' with the actual property holding your order ID
+      navigate(`/myorder`);
+      onClose();
     });
   };
 
@@ -154,6 +162,25 @@ const CardPaymentModal = ({ isOpen, onClose, value }) => {
             Pay Now
           </button>
         </form>
+
+        {/* Payment Options (bKash, Nagad Icons) */}
+        <div className="flex justify-center gap-4 mt-4">
+          <img
+            src={bkash} // Replace with actual bKash icon path
+            alt="bKash"
+            className="w-12 h-12 cursor-pointer"
+          />
+          <img
+            src={nagad} // Replace with actual Nagad icon path
+            alt="Nagad"
+            className="w-12 h-12 cursor-pointer"
+          />{" "}
+          <img
+            src={dach} // Replace with actual Nagad icon path
+            alt="Nagad"
+            className="w-12 h-12 cursor-pointer"
+          />
+        </div>
       </div>
     </div>
   );
