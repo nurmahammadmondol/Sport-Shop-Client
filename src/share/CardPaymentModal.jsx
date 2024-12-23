@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import nagad from "../assets/Photo/nagad.png";
 import bkash from "../assets/Photo/bkash.png";
 import dach from "../assets/Photo/dach.jpg";
+import { AuthContent } from "../Components/Provider/AuthProvider";
 const CardPaymentModal = ({ isOpen, onClose, value }) => {
+  const { setOdered } = useContext(AuthContent);
   console.log(value);
   const {
     register,
@@ -26,6 +28,7 @@ const CardPaymentModal = ({ isOpen, onClose, value }) => {
     }).then(() => {
       // Replace 'data.id' with the actual property holding your order ID
       navigate(`/myorder`);
+      setOdered(value?._id);
       onClose();
     });
   };

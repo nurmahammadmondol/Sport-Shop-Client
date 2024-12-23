@@ -1,41 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
-
-const initialOrderedProducts = [
-  {
-    _id: "675619dfee686347ac174e0c",
-    CategoryName: "Football related equipment",
-    ItemName: "Dear Football",
-    Price: "600",
-    Customization: "No",
-    ProcessingTime: "3 days",
-    StockStatus: "True",
-    Rating: "4.3",
-    Description: "Nice Ball",
-    Photo: "https://i.ibb.co/txb2BmS/football2.jpg",
-    UserName: "Nur Mahammad Mondol Robiul",
-    UserEmail: "nurmahammadmondolrobiul@gmail.com",
-  },
-  {
-    _id: "67561a6dee686347ac174e0d",
-    CategoryName: "Cricket related equipment",
-    ItemName: "Cricket Ball",
-    Price: "280",
-    Customization: "No",
-    ProcessingTime: "2 days",
-    StockStatus: "True",
-    Rating: "4.0",
-    Description: "Nice Ball",
-    Photo: "https://i.ibb.co/Sc5wKgx/yb-attack-156-scaled.jpg",
-    UserName: "Nur Mahammad Mondol Robiul",
-    UserEmail: "nurmahammadmondolrobiul@gmail.com",
-  },
-];
+import { AuthContent } from "../../Provider/AuthProvider";
 
 const MyOrder = () => {
-  const [orderedProducts, setOrderedProducts] = useState(
-    initialOrderedProducts
-  );
+  const { odred } = useContext(AuthContent);
+  // Ensure `ordered` is iterable
+  const newOrdered = Array.isArray(odred) ? [...odred] : [];
+  console.log(newOrdered);
+  const loadAll_Accessory = useLoaderData();
+  const [AllSportsEquipment, setAllSportsEquipment] =
+    useState(loadAll_Accessory);
+  const filteredData = AllSportsEquipment.filter((item) => item._id === odred); // Adjust condition
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -48,7 +24,7 @@ const MyOrder = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        setOrderedProducts((prevProducts) =>
+        setAllSportsEquipment((prevProducts) =>
           prevProducts.filter((product) => product._id !== id)
         );
         Swal.fire("Deleted!", "Your product has been deleted.", "success");
@@ -72,7 +48,7 @@ const MyOrder = () => {
             </tr>
           </thead>
           <tbody>
-            {orderedProducts.map((product) => (
+            {filteredData.map((product) => (
               <tr key={product._id}>
                 <td className="border border-gray-300 px-4 py-2 text-center">
                   <img

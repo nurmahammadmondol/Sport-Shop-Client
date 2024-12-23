@@ -5,9 +5,9 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-} from 'firebase/auth';
-import React, { createContext, useEffect, useState } from 'react';
-import { auth } from '../Firebase.config/Firebase';
+} from "firebase/auth";
+import React, { createContext, useEffect, useState } from "react";
+import { auth } from "../Firebase.config/Firebase";
 
 export const AuthContent = createContext(null);
 
@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
   const [All_Accessories, setAll_Accessories] = useState([]);
   const [User, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [odred, setOdered] = useState(true);
   const CreateUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
@@ -38,21 +38,19 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetch(
-      'http://localhost:1000/All_Accessories'
-    )
-      .then(res => res.json())
-      .then(data => {
+    fetch("http://localhost:1000/All_Accessories")
+      .then((res) => res.json())
+      .then((data) => {
         // console.log(data.length);
         setAll_Accessories(data);
       });
   }, []);
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, User => {
+    const unSubscribe = onAuthStateChanged(auth, (User) => {
       setUser(User);
       setLoading(false);
-      console.log('Your account created successfully');
+      console.log("Your account created successfully");
     });
 
     return () => {
@@ -67,6 +65,8 @@ const AuthProvider = ({ children }) => {
     CreateUserWithGoogle,
     LogOutButton,
     User,
+    setOdered,
+    odred,
     setUser,
     loading,
   };
