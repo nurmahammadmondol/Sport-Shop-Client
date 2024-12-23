@@ -34,8 +34,7 @@ const Footer = () => {
       </footer>
       <div className="bg-neutral text-neutral-content pb-2">
         <h4 className="text-sm text-center rancho-regular">
-          © Created by Nur Mahammad Mondol Robiul, Study web development. All
-          right reserved @ProPlay Accessories 2024
+          © Created by Rasel Sarkar. All right reserved @ProPlay Accessories 2024
         </h4>
       </div>
     </div>

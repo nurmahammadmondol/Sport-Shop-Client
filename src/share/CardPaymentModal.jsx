@@ -119,7 +119,7 @@ const CardPaymentModal = ({ isOpen, onClose, value }) => {
                 defaultValue={value?.Price}
                 disabled
                 placeholder="123"
-                className={`w-full text-green-400 border ${
+                className={`w-full text-gray-400 border ${
                   errors.cvc ? "border-red-500" : "border-gray-300"
                 } rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 ${
                   errors.cvc ? "focus:ring-red-500" : "focus:ring-indigo-500"

@@ -144,7 +144,7 @@ const Products = () => {
                     {singleProduct.ItemName}
                   </td>
                   <td className="text-xs">{singleProduct.CategoryName}</td>
-                  <td>{singleProduct.Price}$</td>
+                  <td>{singleProduct.Price} TK</td>
 
                   <td>
                     {User ? (

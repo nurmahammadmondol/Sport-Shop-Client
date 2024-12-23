@@ -98,7 +98,7 @@ const LogIn = () => {
             </label>
             <input
               type="email"
-              placeholder="email"
+              placeholder="Email"
               name="email"
               className="input input-bordered"
               required
@@ -110,7 +110,7 @@ const LogIn = () => {
             </label>
             <input
               type="password"
-              placeholder="password"
+              placeholder="Password"
               name="password"
               className="input input-bordered"
               required
@@ -126,7 +126,7 @@ const LogIn = () => {
           </div>
         </form>
 
-        <div className="divider ">OR</div>
+        <div className="divider ">Or</div>
 
         <div className="card-body">
           <button

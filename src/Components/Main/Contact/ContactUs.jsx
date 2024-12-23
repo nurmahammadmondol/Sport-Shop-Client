@@ -43,7 +43,7 @@ const ContactUs = () => {
               <div>
                 <h5 className="text-xl font-bold ">Address</h5>
                 <p className="text-sm text-gray-200">
-                  Central Road Rangpur, Dhaka, Bangladesh
+                  House-145, Road-13, Dhanmondi Dhaka-1209, Bangladesh
                 </p>
               </div>
             </div>
@@ -53,7 +53,7 @@ const ContactUs = () => {
               </div>
               <div>
                 <h5 className="text-xl font-bold">Phone</h5>
-                <p className="text-sm text-gray-200">+088017234556789</p>
+                <p className="text-sm text-gray-200">+88 01738-592726</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
