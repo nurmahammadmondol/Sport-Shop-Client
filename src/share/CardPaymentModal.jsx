@@ -1,21 +1,17 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-const CardPaymentModal = ({ isOpen, onClose ,value}) => {
-
-
-  console.log(value)
+const CardPaymentModal = ({ isOpen, onClose, value }) => {
+  console.log(value);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-
-
   const onSubmit = (data) => {
     console.log("Payment Data: ", data);
-  
+
     Swal.fire({
       title: "Payment Successful!",
       text: "Your payment was processed successfully.",
@@ -25,7 +21,6 @@ const CardPaymentModal = ({ isOpen, onClose ,value}) => {
       onClose(); // Close the modal after the alert
     });
   };
-  
 
   if (!isOpen) return null;
 
@@ -80,46 +75,45 @@ const CardPaymentModal = ({ isOpen, onClose ,value}) => {
           <div className="mb-4 flex space-x-4">
             {/* Expiry Date */}
             <div className="flex-1">
-    <label className="block text-sm font-medium text-gray-700">
-      Expiry Date
-    </label>
-    <input
-      type="month"
-      {...register("expiryDate", {
-        required: "Expiry Date is required",
-      })}
-      placeholder="MM/YYYY"
-      className={`w-full border ${
-        errors.expiryDate ? "border-red-500" : "border-gray-300"
-      } rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 ${
-        errors.expiryDate ? "focus:ring-red-500" : "focus:ring-indigo-500"
-      }`}
-    />
-    {errors.expiryDate && (
-      <p className="text-red-500 text-sm mt-1">
-        {errors.expiryDate.message}
-      </p>
-    )}
-  </div>
+              <label className="block text-sm font-medium text-gray-700">
+                Expiry Date
+              </label>
+              <input
+                type="month"
+                {...register("expiryDate", {
+                  required: "Expiry Date is required",
+                })}
+                placeholder="MM/YYYY"
+                className={`w-full border ${
+                  errors.expiryDate ? "border-red-500" : "border-gray-300"
+                } rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 ${
+                  errors.expiryDate
+                    ? "focus:ring-red-500"
+                    : "focus:ring-indigo-500"
+                }`}
+              />
+              {errors.expiryDate && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.expiryDate.message}
+                </p>
+              )}
+            </div>
 
-
-  <div className="flex-1">
+            <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700">
                 Amount
               </label>
               <input
                 type="text"
-          
-               defaultValue={value?.Price}
-               disabled
+                defaultValue={value?.Price}
+                disabled
                 placeholder="123"
-                className={`w-full border ${
+                className={`w-full text-green-400 border ${
                   errors.cvc ? "border-red-500" : "border-gray-300"
                 } rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 ${
                   errors.cvc ? "focus:ring-red-500" : "focus:ring-indigo-500"
                 }`}
               />
-             
             </div>
 
             {/* CVC */}
@@ -145,7 +139,9 @@ const CardPaymentModal = ({ isOpen, onClose ,value}) => {
                 }`}
               />
               {errors.cvc && (
-                <p className="text-red-500 text-sm mt-1">{errors.cvc.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.cvc.message}
+                </p>
               )}
             </div>
           </div>
