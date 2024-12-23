@@ -34,7 +34,7 @@ const MyOrder = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">My Ordered Products</h1>
+      <h1 className="text-xl font-bold mb-4">My Ordered Products</h1>
       <div className="overflow-x-auto">
         <table className="table-auto w-full border-collapse border border-gray-200">
           <thead>
