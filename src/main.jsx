@@ -18,7 +18,8 @@ import LogIn from "./Components/SignUpAndIN/Login/LogIn";
 import SignUp from "./Components/SignUpAndIN/SignUp/SignUp";
 import Privet from "./PrivetRoot/Privet";
 import MyOrder from "./Components/Main/Myorder/MyOrder";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+const queryClient = new QueryClient()
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
       {
         path: "/Products",
         element: <Products></Products>,
-        loader: () => fetch("http://localhost:1000/All_Accessories"),
+
       },
       {
         path: "/AddEquipment",
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
             <MyEquipment></MyEquipment>
           </Privet>
         ),
-        loader: () => fetch("http://localhost:1000/All_Accessories"),
+
       },
       {
         path: "/AboutUS",
@@ -66,8 +67,7 @@ const router = createBrowserRouter([
             <Details></Details>
           </Privet>
         ),
-        loader: ({ params }) =>
-          fetch(`http://localhost:1000/All_Accessories/${params.id}`),
+
       },
       {
         path: "/myorder",
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
             <MyOrder />
           </Privet>
         ),
-        loader: () => fetch("http://localhost:1000/All_Accessories"),
+
       },
       {
         path: "/Update/:id",
@@ -85,8 +85,7 @@ const router = createBrowserRouter([
             <Update></Update>
           </Privet>
         ),
-        loader: ({ params }) =>
-          fetch(`http://localhost:1000/All_Accessories/${params.id}`),
+
       },
       {
         path: "/LogIn",
@@ -102,8 +101,14 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+
+    </QueryClientProvider>
+
+
   </StrictMode>
 );

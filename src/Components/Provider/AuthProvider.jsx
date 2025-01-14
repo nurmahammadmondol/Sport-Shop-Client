@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:1000/All_Accessories")
+    fetch("http://localhost:1000/products")
       .then((res) => res.json())
       .then((data) => {
         // console.log(data.length);
