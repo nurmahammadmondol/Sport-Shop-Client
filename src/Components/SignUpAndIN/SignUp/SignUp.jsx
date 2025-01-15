@@ -113,7 +113,7 @@ const SignUp = () => {
             </label>
             <input
               type="text"
-              placeholder="name"
+              placeholder="Name"
               name="displayName"
               className="input input-bordered"
               // required
@@ -126,7 +126,7 @@ const SignUp = () => {
             </label>
             <input
               type="email"
-              placeholder="email"
+              placeholder="Email"
               name="email"
               className="input input-bordered"
               required
@@ -139,7 +139,7 @@ const SignUp = () => {
             </label>
             <input
               type="password"
-              placeholder="password"
+              placeholder="Password"
               name="password"
               className="input input-bordered"
               required
@@ -152,7 +152,7 @@ const SignUp = () => {
             </label>
             <input
               type="text"
-              placeholder="photo url"
+              placeholder="Photo URL"
               name="photo"
               className="input input-bordered"
               required
