@@ -4,61 +4,27 @@ import { AuthContent } from '../../Provider/AuthProvider';
 import QuestionMark from '../../../assets/Photo/question-mark.png';
 import Swal from 'sweetalert2';
 import { Helmet } from 'react-helmet';
+import { useQuery } from '@tanstack/react-query';
+import axoissecure from '../../../share/Axoisecure';
 
 const MyEquipment = () => {
-  const loadAll_Accessory = useLoaderData();
+
   const { User } = useContext(AuthContent);
 
-  const [userTotalData, setUserTotalData] = useState([]);
+
   // console.log(userTotalData);
+  const { data: cart, refetch, isLoading, error } = useQuery({
+    queryKey: ["cart",],
+    queryFn: async () => {
+      const res = await axoissecure.get(`/products/cart/${User?.email}`);
+      return res?.data?.data;
+    },
+  });
 
-  useEffect(() => {
-    const UserAddAllProduct = loadAll_Accessory.filter(
-      checkRealUser => checkRealUser?.UserName === User?.displayName
-    );
-    setUserTotalData(UserAddAllProduct);
-  }, []);
+  console.log(cart)
 
-  const handleDelateButton = ID => {
-    // console.log(ID);
 
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#4478a7',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then(result => {
-      if (result.isConfirmed) {
-        fetch(
-          `http://localhost:1000/All_Accessories/${ID}`,
-          {
-            method: 'DELETE',
-          }
-        )
-          .then(res => res.json())
-          .then(data => {
-            console.log(data);
 
-            if (data.deletedCount > 0) {
-              if (result.isConfirmed) {
-                Swal.fire({
-                  title: 'Deleted!',
-                  text: 'Your file has been deleted.',
-                  icon: 'success',
-                  confirmButtonColor: '#4478a7',
-                });
-              }
-            }
-
-            const DeleteItem = userTotalData.filter(item => item._id != ID);
-            setUserTotalData(DeleteItem);
-          });
-      }
-    });
-  };
 
   return (
     <div className="w-11/12 md:w-10/12 mx-auto my-10">
@@ -71,7 +37,7 @@ const MyEquipment = () => {
         My Equipment List
       </h3>
 
-      {!userTotalData.length > 0 && (
+      {!cart?.length > 0 && (
         <div className="">
           <img
             className="w-11/12 md:w-6/12 h-full md:h-[350px] lg:w-[450px] mx-auto"
@@ -85,7 +51,7 @@ const MyEquipment = () => {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 md:gap-10">
-        {userTotalData.map(singleData => (
+        {/* {cart?.map(singleData => (
           <div className="w-full border rounded-lg h-full md:h-[250px] p-2 md:p-4 md:flex gap-4 items-center ">
             <div
               className="w-full md:w-2/5 h-[200px] md:h-full border rounded-lg"
@@ -156,7 +122,7 @@ const MyEquipment = () => {
               </div>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );

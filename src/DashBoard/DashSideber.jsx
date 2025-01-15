@@ -15,7 +15,7 @@ const DashSidebar = () => {
     };
 
     return (
-        <div className="bg-gray-800 text-white w-72 min-h-screen flex flex-col justify-between p-4">
+        <div className="bg-gray-800 fixed text-white w-72 min-h-screen flex flex-col justify-between p-4">
             {/* Top Section - Logo */}
             <div>
 

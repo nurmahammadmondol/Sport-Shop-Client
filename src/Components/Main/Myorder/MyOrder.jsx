@@ -2,36 +2,24 @@ import React, { useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContent } from "../../Provider/AuthProvider";
+import { useQuery } from "@tanstack/react-query";
+import axoissecure from "../../../share/Axoisecure";
 
 const MyOrder = () => {
-  const { odred } = useContext(AuthContent);
-  // Ensure `ordered` is iterable
-  const newOrdered = Array.isArray(odred) ? [...odred] : [];
-  console.log(newOrdered);
-  const loadAll_Accessory = useLoaderData();
-  const [AllSportsEquipment, setAllSportsEquipment] =
-    useState(loadAll_Accessory);
-  const filteredData = AllSportsEquipment.filter((item) => item._id === odred); // Adjust condition
 
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setAllSportsEquipment((prevProducts) =>
-          prevProducts.filter((product) => product._id !== id)
-        );
-        Swal.fire("Deleted!", "Your product has been deleted.", "success");
-      }
-    });
-  };
+  const { User } = useContext(AuthContent);
 
+
+  // console.log(userTotalData);
+  const { data: pro, refetch, isLoading, error } = useQuery({
+    queryKey: ["pro",],
+    queryFn: async () => {
+      const res = await axoissecure.get(`/products/order/${User?.email}`);
+      return res?.data?.data;
+    },
+  });
+
+  console.log(pro)
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-xl font-bold mb-4">My Ordered Products</h1>
@@ -48,7 +36,7 @@ const MyOrder = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((product) => (
+            {pro?.map((product) => (
               <tr key={product._id}>
                 <td className="border border-gray-300 px-4 py-2 text-center">
                   <img

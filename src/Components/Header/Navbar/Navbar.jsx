@@ -10,10 +10,11 @@ const Navbar = () => {
     <div className="flex lg:flex-row flex-col lg:w-full w-[180px] p-3 lg:items-center gap-2 md:gap-4 lg:gap-7 ">
       <NavLink to="/">Home</NavLink>
       <NavLink to="/Products">Products</NavLink>
+      <NavLink to="/dashboard/overview">Became a Seller</NavLink>
       {User && (
         <div className="flex flex-col lg:flex-row lg:items-center gap-4">
-          <NavLink to="/AddEquipment">Add Equipment</NavLink>
-          <NavLink to="/MyEquipment">My Equipment List</NavLink>
+
+          <NavLink to="/MyEquipment">My Cart</NavLink>
           <NavLink to="/myorder">My Order</NavLink>
         </div>
       )}

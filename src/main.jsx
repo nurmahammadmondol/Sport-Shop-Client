@@ -13,7 +13,7 @@ import AboutUs from "./Components/Main/AboutUs/AboutUs";
 import Details from "./Components/Main/Details/Details";
 import Update from "./Components/Main/Update/Update";
 import ContactUs from "./Components/Main/Contact/ContactUs";
-
+import { Toaster } from "react-hot-toast";
 import LogIn from "./Components/SignUpAndIN/Login/LogIn";
 import SignUp from "./Components/SignUpAndIN/SignUp/SignUp";
 import Privet from "./PrivetRoot/Privet";
@@ -23,6 +23,11 @@ import DashLayout from "./DashBoard/DashLayout";
 import Dhome from "./DashBoard/Dashpage/Dhome";
 import ProductTable from "./DashBoard/Dashpage/ProductTable";
 import SellerTable from "./DashBoard/Dashpage/SellerList";
+import AddProducts from "./DashBoard/Form/AddForm/AddProducts";
+import UpdateProduct from "./DashBoard/Form/UpdateForm/UpdateProduct";
+import Register from "./DashBoard/Form/AddForm/Register";
+import DashLogin from "./DashBoard/Form/AddForm/DashLogin";
+import Dprivateroute from "./Router/DashPrivate/Dprivateroute";
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
   {
@@ -105,7 +110,7 @@ const router = createBrowserRouter([
 
   {
     path: "/dashboard",
-    element: <DashLayout />,
+    element: < DashLayout />,
     children: [
       {
         path: '/dashboard/overview',
@@ -117,10 +122,26 @@ const router = createBrowserRouter([
         element: <ProductTable />,
       },
       {
+        path: '/dashboard/addproducts',
+        element: <AddProducts />,
+      },
+      {
+        path: '/dashboard/updateproducts/:id',
+        element: <UpdateProduct />,
+      },
+      {
         path: '/dashboard/seller',
         element: <SellerTable />,
       },
     ]
+  },
+  {
+    path: '/register',
+    element: <Register />,
+  },
+  {
+    path: '/dashlogin',
+    element: <DashLogin />,
   },
 ]);
 
@@ -132,6 +153,7 @@ createRoot(document.getElementById("root")).render(
         <RouterProvider router={router} />
       </AuthProvider>
 
+      <Toaster />
     </QueryClientProvider>
 
 

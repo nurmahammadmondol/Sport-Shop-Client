@@ -10,7 +10,7 @@ const DashLayout = () => {
             <DashSideber />
 
             {/* Main content */}
-            <div className="flex-grow bg-gray-100 min-h-screen p-4">
+            <div className="flex-grow overflow-y-auto ml-[290px] bg-gray-100 min-h-screen p-4">
                 <Outlet />
             </div>
         </div>

@@ -6,8 +6,10 @@ import nagad from "../assets/Photo/nagad.png";
 import bkash from "../assets/Photo/bkash.png";
 import dach from "../assets/Photo/dach.jpg";
 import { AuthContent } from "../Components/Provider/AuthProvider";
+import axoissecure from "./Axoisecure";
 const CardPaymentModal = ({ isOpen, onClose, value }) => {
   const { setOdered } = useContext(AuthContent);
+  const { User } = useContext(AuthContent);
   console.log(value);
   const {
     register,
@@ -17,20 +19,50 @@ const CardPaymentModal = ({ isOpen, onClose, value }) => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("Payment Data: ", data);
 
-    Swal.fire({
-      title: "Payment Successful!",
-      text: "Your payment was processed successfully.",
-      icon: "success",
-      confirmButtonText: "OK",
-    }).then(() => {
-      // Replace 'data.id' with the actual property holding your order ID
-      navigate(`/myorder`);
-      setOdered(value?._id);
-      onClose();
-    });
+    try {
+      // Define the API endpoint
+      const apiEndpoint = '/api/payment';
+
+      // Create the data object to send in the POST request
+      const paymentData = {
+        email: User?.email, // Assuming 'email' is part of the form data
+        productIds: value._id, // Assuming 'productId' is part of the form data
+        totalAmount: value.Price, // Assuming 'price' is part of the form data
+      };
+
+      // Send POST request to the server
+      const response = await axoissecure.post('/products/order', paymentData);
+
+      if (response.status === 201) {
+        // Show success message from SweetAlert
+        Swal.fire({
+          title: "Payment Successful!",
+          text: "Your payment was processed successfully.",
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then(() => {
+          // Navigate to the orders page
+          navigate(`/myorder`);
+          setOdered(value?._id);  // Update with order ID or value as needed
+          onClose(); // Close the modal or form
+        });
+      } else {
+        throw new Error('Payment failed');
+      }
+    } catch (error) {
+      console.error('Error during payment:', error);
+
+      // Show error message from SweetAlert
+      Swal.fire({
+        title: "Payment Failed",
+        text: "There was an issue processing your payment. Please try again.",
+        icon: "error",
+        confirmButtonText: "Retry",
+      });
+    }
   };
 
   if (!isOpen) return null;
@@ -66,13 +98,11 @@ const CardPaymentModal = ({ isOpen, onClose, value }) => {
                   message: "Invalid card number",
                 },
               })}
-              className={`w-full border ${
-                errors.cardNumber ? "border-red-500" : "border-gray-300"
-              } rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 ${
-                errors.cardNumber
+              className={`w-full border ${errors.cardNumber ? "border-red-500" : "border-gray-300"
+                } rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 ${errors.cardNumber
                   ? "focus:ring-red-500"
                   : "focus:ring-indigo-500"
-              }`}
+                }`}
               placeholder="1234 5678 9012 3456"
             />
             {errors.cardNumber && (
@@ -95,13 +125,11 @@ const CardPaymentModal = ({ isOpen, onClose, value }) => {
                   required: "Expiry Date is required",
                 })}
                 placeholder="MM/YYYY"
-                className={`w-full border ${
-                  errors.expiryDate ? "border-red-500" : "border-gray-300"
-                } rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 ${
-                  errors.expiryDate
+                className={`w-full border ${errors.expiryDate ? "border-red-500" : "border-gray-300"
+                  } rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 ${errors.expiryDate
                     ? "focus:ring-red-500"
                     : "focus:ring-indigo-500"
-                }`}
+                  }`}
               />
               {errors.expiryDate && (
                 <p className="text-red-500 text-sm mt-1">
@@ -119,11 +147,9 @@ const CardPaymentModal = ({ isOpen, onClose, value }) => {
                 defaultValue={value?.Price}
                 disabled
                 placeholder="123"
-                className={`w-full text-green-400 border ${
-                  errors.cvc ? "border-red-500" : "border-gray-300"
-                } rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 ${
-                  errors.cvc ? "focus:ring-red-500" : "focus:ring-indigo-500"
-                }`}
+                className={`w-full text-green-400 border ${errors.cvc ? "border-red-500" : "border-gray-300"
+                  } rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 ${errors.cvc ? "focus:ring-red-500" : "focus:ring-indigo-500"
+                  }`}
               />
             </div>
 
@@ -143,11 +169,9 @@ const CardPaymentModal = ({ isOpen, onClose, value }) => {
                   },
                 })}
                 placeholder="123"
-                className={`w-full border ${
-                  errors.cvc ? "border-red-500" : "border-gray-300"
-                } rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 ${
-                  errors.cvc ? "focus:ring-red-500" : "focus:ring-indigo-500"
-                }`}
+                className={`w-full border ${errors.cvc ? "border-red-500" : "border-gray-300"
+                  } rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 ${errors.cvc ? "focus:ring-red-500" : "focus:ring-indigo-500"
+                  }`}
               />
               {errors.cvc && (
                 <p className="text-red-500 text-sm mt-1">

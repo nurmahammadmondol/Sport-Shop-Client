@@ -1,11 +1,42 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { FaBox, FaMoneyBillWave, FaUsers, FaUserCheck } from 'react-icons/fa';
+import axoissecure from '../../share/Axoisecure';
 
 export default function Dhome() {
+
+
+    const { data: item = [], refetch } = useQuery({
+        queryKey: ["pro"],
+        queryFn: async () => {
+            try {
+                const res = await axoissecure.get(`/products`);
+                return res?.data?.data || [];
+            } catch (error) {
+                console.error("Error fetching products:", error);
+                throw error;
+            }
+        },
+    });
+
+
+    const { data: seller = [], } = useQuery({
+        queryKey: ["pro"],
+        queryFn: async () => {
+            try {
+                const res = await axoissecure.get(`/register`);
+                return res?.data?.sellers || [];
+            } catch (error) {
+                console.error("Error fetching products:", error);
+                throw error;
+            }
+        },
+    });
+
     const stats = [
-        { id: 1, title: 'Total Items', value: 1200, icon: <FaBox className="text-4xl text-blue-500" /> },
+        { id: 1, title: 'Total Items', value: item?.length, icon: <FaBox className="text-4xl text-blue-500" /> },
         { id: 2, title: 'Total Sales', value: 53000, icon: <FaMoneyBillWave className="text-4xl text-green-500" /> },
-        { id: 3, title: 'Total Sellers', value: 300, icon: <FaUsers className="text-4xl text-yellow-500" /> },
+        { id: 3, title: 'Total Sellers', value: seller?.length, icon: <FaUsers className="text-4xl text-yellow-500" /> },
         { id: 4, title: 'Active Sellers', value: 250, icon: <FaUserCheck className="text-4xl text-purple-500" /> },
     ];
 

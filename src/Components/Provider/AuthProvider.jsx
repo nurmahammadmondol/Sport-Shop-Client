@@ -8,12 +8,17 @@ import {
 } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
 import { auth } from "../Firebase.config/Firebase";
+import axoissecure from "../../share/Axoisecure";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContent = createContext(null);
 
 const AuthProvider = ({ children }) => {
+
   const [All_Accessories, setAll_Accessories] = useState([]);
   const [User, setUser] = useState(null);
+  const [dashUser, setDashuser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [odred, setOdered] = useState(true);
   const CreateUser = (email, password) => {
@@ -58,6 +63,34 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
+
+
+  const handleLogin = async (email) => {
+    try {
+      const response = await axoissecure.get(`/register/auth/${email}`,);
+      console.log(response);
+
+      if (response.data?.statusCode === 200) {
+        setDashuser(response.data?.seller); // Save user info to state
+        toast.success("Login successful!");
+        window.location.href = '/dashboard'; // Navigate to dashboard
+      } else {
+
+      }
+    } catch (error) {
+      const statusCode = error.response?.status; // Access error status
+      if (error?.statusCode === 403) {
+        toast.error("Seller's ownership is not verified");
+      } else if (error?.statusCode === 401) {
+        toast.error("Invalid email or password");
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+      console.error("Login error:", error);
+    }
+  };
+
+
   const AllInfo = {
     All_Accessories,
     CreateUser,
@@ -65,6 +98,8 @@ const AuthProvider = ({ children }) => {
     CreateUserWithGoogle,
     LogOutButton,
     User,
+    dashUser,
+    handleLogin,
     setOdered,
     odred,
     setUser,

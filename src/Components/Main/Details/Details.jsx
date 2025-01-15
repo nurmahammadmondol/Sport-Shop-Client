@@ -6,6 +6,7 @@ import { AuthContent } from '../../Provider/AuthProvider';
 import axoissecure from '../../../share/Axoisecure';
 import { useQuery } from '@tanstack/react-query';
 import BG from '../../../assets/Photo/bg.png';
+import toast from 'react-hot-toast';
 
 const Details = () => {
   const { id } = useParams();
@@ -35,13 +36,29 @@ const Details = () => {
     navigate(-1);
   };
 
-  const openModal = () => {
+  const openModal = (details) => {
     setIsModalOpen(true);
     setValue(details);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+  const addToCart = async (details) => {
+    try {
+      const response = await axoissecure.post('/products/addtocart', {
+        email: User?.email,
+        productId: details,
+      });
+
+      if (response.status === 200 || response.status === 201) {
+        toast.success('Item successfully added to the cart!');
+      } else {
+        toast.error('Failed to add item to the cart.');
+      }
+    } catch (error) {
+      toast.error('Error while adding item to the cart. Please try again.');
+    }
   };
 
   return (
@@ -67,11 +84,17 @@ const Details = () => {
 
         <div className="border h-full md:h-[500px] md:flex gap-5 bg-base-100 shadow-xl">
           <div className="w-full md:w-1/2 h-[350px] md:h-full">
-            <img className="h-full w-full object-cover" src={details?.Photo || 'placeholder.jpg'} alt="Product" />
+            <img
+              className="h-full w-full object-cover"
+              src={details?.Photo || 'placeholder.jpg'}
+              alt="Product"
+            />
           </div>
 
           <div className="w-full md:w-1/2 p-3 md:p-5 space-y-4 flex flex-col justify-center">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">{details?.ItemName}</h2>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+              {details?.ItemName}
+            </h2>
 
             <small className="text-gray-500">
               <i className="fa-regular fa-user mr-1"></i> User Name: {details?.UserName}
@@ -107,24 +130,38 @@ const Details = () => {
               </small>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-2 flex gap-4">
               {User ? (
-                <button
-                  onClick={openModal}
-                  className="px-6 py-1 bg-blue-600 text-white font-semibold text-lg rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                >
-                  Pay
-                </button>
+                <>
+                  <button
+                    onClick={() => openModal(details)}
+                    className="px-6 py-1 bg-blue-600 text-white font-semibold text-lg rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  >
+                    Pay
+                  </button>
+
+                </>
               ) : (
-                <Link to="/Login">
-                  <button className="btn btn-primary w-full">Pay</button>
-                </Link>
+                <>
+                  <Link to="/Login">
+                    <button className="btn btn-primary w-full">Pay</button>
+                  </Link>
+
+                </>
               )}
+
+              <button
+                onClick={() => addToCart(details?._id)}
+                className="px-6 py-1 bg-green-600 text-white font-semibold text-lg rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300"
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
         </div>
+
       </div>
-    </div>
+    </div >
   );
 };
 
