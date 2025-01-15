@@ -19,12 +19,16 @@ import SignUp from "./Components/SignUpAndIN/SignUp/SignUp";
 import Privet from "./PrivetRoot/Privet";
 import MyOrder from "./Components/Main/Myorder/MyOrder";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import DashLayout from "./DashBoard/DashLayout";
+import Dhome from "./DashBoard/Dashpage/Dhome";
+import ProductTable from "./DashBoard/Dashpage/ProductTable";
+import SellerTable from "./DashBoard/Dashpage/SellerList";
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home></Home>,
-    errorElement: <h3>Error 404</h3>,
+
     children: [
       {
         path: "/",
@@ -61,11 +65,11 @@ const router = createBrowserRouter([
         element: <ContactUs></ContactUs>,
       },
       {
-        path: "/Details/:id",
+        path: "/details/:id",
         element: (
-          <Privet>
-            <Details></Details>
-          </Privet>
+
+          <Details></Details>
+
         ),
 
       },
@@ -96,6 +100,27 @@ const router = createBrowserRouter([
         element: <SignUp></SignUp>,
       },
     ],
+  },
+
+
+  {
+    path: "/dashboard",
+    element: <DashLayout />,
+    children: [
+      {
+        path: '/dashboard/overview',
+        element: <Dhome />,
+      },
+
+      {
+        path: '/dashboard/productlist',
+        element: <ProductTable />,
+      },
+      {
+        path: '/dashboard/seller',
+        element: <SellerTable />,
+      },
+    ]
   },
 ]);
 

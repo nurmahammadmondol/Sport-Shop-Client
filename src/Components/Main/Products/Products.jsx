@@ -1,58 +1,48 @@
 import React, { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContent } from "../../Provider/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
-import axoissecure from "../../../share/Axoisecure";
+import axoissecure from '../../../share/Axoisecure';
 
 const Products = () => {
-  const loadAll_Accessory = useLoaderData();
-  const [AllSportsEquipment, setAllSportsEquipment] =
-    useState(loadAll_Accessory);
-
-
-  // const { data: item, refetch } = useQuery({
-  //   queryKey: ["information"],
-  //   queryFn: async () => {
-  //     try {
-  //       const res = await axoissecure.get(`/products`);
-  //       console.log(res.data);
-  //       return res.data.data;
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //       throw error;
-  //     }
-  //   },
-  // });
-
   const { User } = useContext(AuthContent);
 
-  const handleSortLowestPrice = () => {
-    const sortedDataAcc = [...AllSportsEquipment].sort(
-      (a, b) => a.Price - b.Price
-    );
-    setAllSportsEquipment(sortedDataAcc);
-  };
+  const { data: item = [], refetch } = useQuery({
+    queryKey: ["pro"],
+    queryFn: async () => {
+      try {
+        const res = await axoissecure.get(`/products`);
+        return res?.data?.data || [];
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        throw error;
+      }
+    },
+  });
 
+  // States for sorting, filtering, and search
   const [query, setQuery] = useState("");
   const [customizationFilter, setCustomizationFilter] = useState("All");
   const [stockStatusFilter, setStockStatusFilter] = useState("All");
+  const [allSportsEquipment, setAllSportsEquipment] = useState(item);
 
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setQuery(value);
+  // Filter and Sorting Logic
+  const handleSortLowestPrice = () => {
+    const sortedData = [...item].sort((a, b) => a.Price - b.Price);
+    setAllSportsEquipment(sortedData);
   };
 
-  const filteredData = AllSportsEquipment?.data?.filter((item) => {
-    const matchesQuery = item.ItemName.toLowerCase().includes(
-      query.toLowerCase()
-    );
-    const matchesCustomization =
-      customizationFilter === "All" ||
-      item.Customization === customizationFilter;
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+  };
 
+  const filteredData = item?.filter((product) => {
+    const matchesQuery = product.ItemName?.toLowerCase().includes(query.toLowerCase());
+    const matchesCustomization =
+      customizationFilter === "All" || product.Customization === customizationFilter;
     const matchesStockStatus =
-      stockStatusFilter === "All" || item.StockStatus === stockStatusFilter;
+      stockStatusFilter === "All" || product.StockStatus === stockStatusFilter;
 
     return matchesQuery && matchesCustomization && matchesStockStatus;
   });
@@ -62,6 +52,8 @@ const Products = () => {
       <Helmet>
         <title>ProPlay Accessories || All Products</title>
       </Helmet>
+
+      {/* Search Input */}
       <div className="relative pb-10">
         <input
           type="text"
@@ -71,30 +63,32 @@ const Products = () => {
           placeholder="Search Item"
         />
       </div>
+
+      {/* Filters and Sorting */}
       <div className="flex justify-between items-center mb-10">
         <h4 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center">
           All Sports Equipment
         </h4>
 
-        <div className="flex justify-center items-center gap-4">
-          <label>
+        <div className="flex gap-4">
+          <label className="flex items-center gap-2">
             Customization:
             <select
               value={customizationFilter}
               onChange={(e) => setCustomizationFilter(e.target.value)}
-              className="ml-2 border rounded-md"
+              className="border rounded-md"
             >
               <option value="All">All</option>
               <option value="Yes">Yes</option>
               <option value="No">No</option>
             </select>
           </label>
-          <label>
+          <label className="flex items-center gap-2">
             Stock Status:
             <select
               value={stockStatusFilter}
               onChange={(e) => setStockStatusFilter(e.target.value)}
-              className="ml-2 border rounded-md"
+              className="border rounded-md"
             >
               <option value="All">All</option>
               <option value="True">Stock In</option>
@@ -102,6 +96,7 @@ const Products = () => {
             </select>
           </label>
         </div>
+
         <button
           onClick={handleSortLowestPrice}
           className="btn btn-outline text-xs text-[#4478a7]"
@@ -110,37 +105,33 @@ const Products = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filteredData.map((singleProduct) => (
+      {/* Product Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+        {filteredData?.map((product) => (
           <div
-            key={singleProduct._id}
+            key={product._id}
             className="border rounded-lg shadow p-4 flex flex-col items-center text-center"
           >
             <img
-              src={singleProduct.Photo}
-              alt={singleProduct.ItemName}
+              src={product.Photo}
+              alt={product.ItemName}
               className="w-32 h-32 object-cover rounded-lg mb-4"
             />
-            <h5 className="text-lg font-semibold mb-2">
-              {singleProduct.ItemName}
-            </h5>
-            <p className="text-sm text-gray-500">
-              {singleProduct.CategoryName}
-            </p>
+            <h5 className="text-xl font-semibold rancho-regular mb-2">{product.ItemName}</h5>
+            <div className="flex items-center gap-3">
+
+              <p className="text-sm text-gray-500">Quntity : {product.quntity || 0}</p>
+              <p className="text-sm text-gray-400">
+                <i class="fa-regular fa-star pt-2 mr-1"></i>Rating :
+                {product.Rating}
+              </p>
+            </div>
             <p className="text-lg font-bold text-[#4478a7] mb-4">
-              ${singleProduct.Price}
+              ${product.Price}
             </p>
-            {User ? (
-              <Link to={`/Details/${singleProduct._id}`}>
-                <button className="btn btn-primary w-full">
-                  View Details
-                </button>
-              </Link>
-            ) : (
-              <Link to="/Login">
-                <button className="btn btn-primary w-full">View Details</button>
-              </Link>
-            )}
+            <Link to={`/details/${product._id}`}>
+              <button className="btn btn-primary w-full">View Details</button>
+            </Link>
           </div>
         ))}
       </div>

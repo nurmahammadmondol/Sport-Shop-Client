@@ -2,9 +2,24 @@ import { useContext } from 'react';
 import { AuthContent } from '../../Provider/AuthProvider';
 import Marquee from 'react-fast-marquee';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import axoissecure from '../../../share/Axoisecure';
 
 const Collection_T = () => {
-  const { All_Accessories } = useContext(AuthContent);
+
+  const { data: item, refetch } = useQuery({
+    queryKey: ["tranding"],
+    queryFn: async () => {
+      try {
+        const res = await axoissecure.get(`/products`);
+        console.log(res.data?.data);
+        return res.data.data;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        throw error;
+      }
+    },
+  });
 
   return (
     <div className="my-28 h-full">
@@ -14,7 +29,7 @@ const Collection_T = () => {
       {/* grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 */}
       <Marquee speed={30} pauseOnHover={true} className="space-x-10">
         <div className="flex gap-5  md:gap-10">
-          {All_Accessories.map(Single_Item => (
+          {item?.map(Single_Item => (
             <div className="border rounded-lg h-[300px] md:h-[400px] w-[200px] md:w-[280px] flex flex-col gap-1 md:gap-3">
               <div className="w-full h-2/3  flex justify-center bg-gray-50">
                 <img
