@@ -80,7 +80,7 @@ const MyOrder = () => {
                     className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
                     onClick={() => handleCancelOrder(product._id)}
                   >
-                    Cancel Order
+                    Cancel
                   </button>
                 </td>
               </tr>

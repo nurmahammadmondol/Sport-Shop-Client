@@ -34,8 +34,8 @@ export default function Dhome() {
     });
 
     const stats = [
-        // { id: 1, title: 'Total Items', value: item?.length, icon: <FaBox className="text-4xl text-blue-500" /> },
-        // { id: 2, title: 'Total Sales', value: 53000, icon: <FaMoneyBillWave className="text-4xl text-green-500" /> },
+        { id: 1, title: 'Total Items', value: item?.length, icon: <FaBox className="text-4xl text-blue-500" /> },
+        { id: 2, title: 'Total Sales', value: 53000, icon: <FaMoneyBillWave className="text-4xl text-green-500" /> },
         { id: 3, title: 'Total Sellers', value: seller?.length, icon: <FaUsers className="text-4xl text-yellow-500" /> },
         { id: 4, title: 'Active Sellers', value: 250, icon: <FaUserCheck className="text-4xl text-purple-500" /> },
     ];

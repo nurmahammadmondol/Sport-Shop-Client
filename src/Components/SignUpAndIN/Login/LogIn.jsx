@@ -118,7 +118,7 @@ const LogIn = () => {
               />
               <span
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute  right-0 flex items-center px-3 cursor-pointer"
+                className="absolute  right-0  bottom-4 flex items-center px-3 cursor-pointer"
               >
                 <i className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
               </span>
