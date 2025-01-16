@@ -108,20 +108,23 @@ const LogIn = () => {
             <label className="label">
               <span className="label-text">Password</span>
             </label>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Password"
-              name="password"
-              className="input input-bordered"
-              required
-            />
-            <span
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-12 cursor-pointer"
-            >
-              <i className={showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'}></i>
-            </span>
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Password"
+                name="password"
+                className="input input-bordered w-full pr-10"
+                required
+              />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute  right-0 flex items-center px-3 cursor-pointer"
+              >
+                <i className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+              </span>
+            </div>
           </div>
+
           <div className="form-control mt-6">
             <button className="btn bg-[#4478a7] text-white">Login</button>
           </div>

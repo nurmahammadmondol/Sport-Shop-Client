@@ -10,8 +10,34 @@ import { Helmet } from 'react-helmet';
 const SignUp = () => {
   const { CreateUser, CreateUserWithGoogle, setUser } = useContext(AuthContent);
   const navigate = useNavigate();
+  const imgbbAPIKey = 'e24eb36f6b11de0c47cce166247db49b'; // Replace with your ImgBB API Key
+  const [showPassword, setShowPassword] = useState(false);
+  const handleReset = () => {
+    formik.resetForm();
+  };
 
+  const uploadImage = async (file) => {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`, {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.json();
+      if (result.success) {
+        return result.data.url; // Returns the image URL
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      // toast.error("Failed to upload the image. Please try again.");
+    }
+    return null; // Return null if the upload fails
+  };
   const handleRegistration = e => {
+
+
     e.preventDefault();
 
     const form = e.target;
@@ -133,31 +159,38 @@ const SignUp = () => {
             />
           </div>
 
-          <div className="form-control">
+          <div className="form-control relative">
             <label className="label">
               <span className="label-text">Password</span>
             </label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               placeholder="Password"
               name="password"
-              className="input input-bordered"
+              className="input input-bordered pr-12" // added padding-right to make space for the icon
               required
             />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-14 cursor-pointer" // positioned the icon correctly
+            >
+              <i className={showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'}></i>
+            </span>
           </div>
 
-          {/* <div className="form-control">
+
+          <div className="form-control">
             <label className="label">
               <span className="label-text">Photo</span>
             </label>
             <input
-              type="text"
+              type="file"
               placeholder="Photo URL"
               name="photo"
               className="input input-bordered"
               required
             />
-          </div> */}
+          </div>
 
           <div className="form-control">
             <label className="cursor-pointer label">

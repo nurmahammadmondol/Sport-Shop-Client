@@ -150,13 +150,13 @@ const Details = () => {
 
                 </>
               )}
-
-              <button
+              {User ? <button
                 onClick={() => addToCart(details?._id)}
                 className="px-6 py-1 bg-green-600 text-white font-semibold text-lg rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300"
               >
                 Add to Cart
-              </button>
+              </button> : ''}
+
             </div>
           </div>
         </div>

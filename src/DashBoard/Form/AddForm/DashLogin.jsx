@@ -1,10 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useFormik } from 'formik';
 import { AuthContent } from '../../../Components/Provider/AuthProvider';
 import { Link } from 'react-router-dom';
 
 const DashLogin = () => {
     const { handleLogin } = useContext(AuthContent);
+
+    // State for password visibility
+    const [showPassword, setShowPassword] = useState(false);
+
+    // Toggle password visibility
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     // Initialize Formik with initial values and submit handler
     const formik = useFormik({
         initialValues: {
@@ -12,7 +21,7 @@ const DashLogin = () => {
             password: '',
         },
         onSubmit: values => {
-            handleLogin(values.email)
+            handleLogin(values.email);
         },
     });
 
@@ -41,22 +50,33 @@ const DashLogin = () => {
                 </div>
 
                 {/* Password Field */}
-                <div className="mb-6">
+                <div className="mb-6 relative">
                     <label htmlFor="password" className="block text-sm font-medium text-gray-600">
                         Password
                     </label>
                     <input
                         id="password"
                         name="password"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         onChange={formik.handleChange}
                         value={formik.values.password}
                         className="mt-2 p-3 w-full border rounded-md focus:ring-2 focus:ring-blue-500"
                         placeholder="Enter your password"
                     />
+                    {/* Show/Hide Password Icon */}
+                    <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className="absolute right-3 top-10 text-gray-500 focus:outline-none"
+                    >
+                        {showPassword ? '🙈' : '👁️'}
+                    </button>
                 </div>
 
-                <Link className='underline text-red-400 ' to={'/register'}>No Account Register</Link>
+                <Link className="underline text-red-400" to={'/register'}>
+                    No Account? Register
+                </Link>
+
                 {/* Buttons */}
                 <div className="flex justify-between pt-3 items-center">
                     {/* Reset Button */}
@@ -77,7 +97,7 @@ const DashLogin = () => {
                     </button>
                 </div>
             </form>
-        </div >
+        </div>
     );
 };
 

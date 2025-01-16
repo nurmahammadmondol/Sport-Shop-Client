@@ -36,7 +36,7 @@ const Products = () => {
       const matchesStockStatus =
         stockStatusFilter === "All" ||
         (stockStatusFilter === "True" && product.StockStatus === "In Stock") ||
-        (stockStatusFilter === "False" && product.StockStatus === "Sold Out");
+        (stockStatusFilter === "False" && product.StockStatus === "Out of Stock");
 
       return matchesQuery && matchesCustomization && matchesStockStatus;
     })
@@ -70,18 +70,7 @@ const Products = () => {
         </h4>
 
         <div className="flex gap-4">
-          <label className="flex items-center gap-2">
-            Customization:
-            <select
-              value={customizationFilter}
-              onChange={(e) => setCustomizationFilter(e.target.value)}
-              className="border rounded-md"
-            >
-              <option value="All">All</option>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
-          </label>
+
           <label className="flex items-center gap-2">
             Stock Status:
             <select
@@ -91,7 +80,7 @@ const Products = () => {
             >
               <option value="All">All</option>
               <option value="True">Stock In</option>
-              <option value="False">Sold Out</option>
+              <option value="False">Out of Stock</option>
             </select>
           </label>
         </div>

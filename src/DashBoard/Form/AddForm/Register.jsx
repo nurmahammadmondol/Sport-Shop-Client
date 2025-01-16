@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import toast from 'react-hot-toast';
 import axoissecure from '../../../share/Axoisecure';
+import { FiEye, FiEyeOff } from 'react-icons/fi'; // Importing eye icons
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Register = () => {
     const imgbbAPIKey = 'e24eb36f6b11de0c47cce166247db49b'; // Replace with your ImgBB API Key
-
+    const [passwordVisible, setPasswordVisible] = useState(false); // State to toggle password visibility
+    const navigate = useNavigate()
     const handleReset = () => {
         formik.resetForm();
     };
@@ -25,10 +28,10 @@ const Register = () => {
             }
         } catch (error) {
             console.error("Error uploading image:", error);
-            // toast.error("Failed to upload the image. Please try again.");
         }
         return null; // Return null if the upload fails
     };
+
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -67,6 +70,7 @@ const Register = () => {
                 if (response.status === 201) {
                     toast.success("Register User successfully!");
                     handleReset();
+                    navigate('/dashlogin')
                 }
             } catch (error) {
                 toast.error("An error occurred while adding the product. Please try again.");
@@ -75,9 +79,12 @@ const Register = () => {
         }
     });
 
-    // Handle file input for the profile photo
     const handleFileChange = event => {
         formik.setFieldValue('profile', event.currentTarget.files[0]);
+    };
+
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(prevState => !prevState);
     };
 
     return (
@@ -113,21 +120,24 @@ const Register = () => {
             </div>
 
             {/* Password Field */}
-            <div className="mb-4">
+            <div className="mb-4 relative">
                 <label htmlFor="password" className="block text-sm font-medium text-gray-600">Password</label>
                 <input
                     id="password"
                     name="password"
-                    type="password"
+                    type={passwordVisible ? "text" : "password"} // Toggle between text and password
                     onChange={formik.handleChange}
                     value={formik.values.password}
                     className="mt-2 p-3 w-full border rounded-md focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter your password"
                 />
+                <span
+                    onClick={togglePasswordVisibility}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                >
+                    {passwordVisible ? <FiEyeOff size={24} /> : <FiEye size={24} />}
+                </span>
             </div>
-
-
-
 
             {/* Store Name */}
             <div className="mb-4">
@@ -170,21 +180,8 @@ const Register = () => {
                 />
             </div>
 
-            {/* Profile Photo */}
-            <div className="mb-4">
-                <label htmlFor="profile" className="block text-sm font-medium text-gray-600">Profile Photo</label>
-                <input
-                    id="profile"
-                    name="profile"
-                    type="file"
-                    onChange={handleFileChange}
-                    className="mt-2 p-3 w-full border rounded-md focus:ring-2 focus:ring-blue-500"
-                />
-            </div>
-
             {/* Submit Button */}
             <div className="flex justify-between">
-                {/* Reset Button */}
                 <button
                     type="reset"
                     onClick={() => formik.resetForm()}
@@ -193,7 +190,6 @@ const Register = () => {
                     Cancel
                 </button>
 
-                {/* Submit Button */}
                 <button
                     type="submit"
                     className="w-32 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"

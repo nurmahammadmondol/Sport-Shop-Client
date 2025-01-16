@@ -50,15 +50,7 @@ const DashSidebar = () => {
             <div>
                 {/* Shop Information */}
                 <div className="flex items-center mb-4">
-                    <img
-                        src={logo} // Replace with your shop image URL
-                        alt="Shop"
-                        className="w-12 h-12 rounded-full mr-3"
-                    />
-                    <div>
-                        <h3 className="text-md font-semibold">ProPlay Accessories</h3>
-                        <p className="text-sm text-gray-300">+123-456-7890</p> {/* Replace with dynamic contact number */}
-                    </div>
+
                 </div>
                 {/* Logout Button */}
                 <button
