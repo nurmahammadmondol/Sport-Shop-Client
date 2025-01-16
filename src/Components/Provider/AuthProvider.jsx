@@ -73,7 +73,7 @@ const AuthProvider = ({ children }) => {
       if (response.data?.statusCode === 200) {
         setDashuser(response.data?.seller); // Save user info to state
         toast.success("Login successful!");
-        window.location.href = '/dashboard'; // Navigate to dashboard
+        window.location.href = '/dashboard/overview'; // Navigate to dashboard
       } else {
 
       }

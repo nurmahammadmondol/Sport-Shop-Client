@@ -18,7 +18,7 @@ const MyEquipment = () => {
   const { data: cart } = useQuery({
     queryKey: ["carthh",],
     queryFn: async () => {
-      const res = await axoissecure.get(`/cart/${User?.email}`);
+      const res = await axoissecure.get(`/cart/৳{User?.email}`);
       return res?.data?.data;
     },
   });
@@ -110,7 +110,7 @@ const MyEquipment = () => {
                 <div className="flex gap-3 lg:gap-8 text-gray-500">
                   <small>
                     <i class="fa-solid fa-money-check-dollar mr-1"></i>Price :
-                    {singleData.Price}$
+                    {singleData.Price}৳
                   </small>
                   <small>
                     <i class="fa-brands fa-shopify mr-1"></i>Stock :

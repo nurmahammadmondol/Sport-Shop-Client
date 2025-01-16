@@ -96,16 +96,10 @@ const Details = () => {
               {details?.ItemName}
             </h2>
 
-            <small className="text-gray-500">
-              <i className="fa-regular fa-user mr-1"></i> User Name: {details?.UserName}
-            </small>
-            <small className="text-gray-500">
-              <i className="fa-regular fa-envelope mr-1"></i> User Email: {details?.UserEmail}
-            </small>
 
             <div className="flex gap-5 md:gap-8 text-gray-500">
               <small>
-                <i className="fa-solid fa-money-check-dollar mr-1"></i> Price: ${details?.Price}
+                <i className="fa-solid fa-money-check-dollar mr-1"></i> Price: ৳{details?.Price}
               </small>
               <small>
                 <i className="fa-brands fa-shopify mr-1"></i> Stock: {details?.StockStatus}

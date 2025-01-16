@@ -17,7 +17,7 @@ const Privet = ({ children }) => {
     return children;
   }
 
-  return <Navigate to="/"></Navigate>;
+  return <Navigate to="/Products"></Navigate>;
 };
 
 export default Privet;
