@@ -46,7 +46,7 @@ const Details = () => {
   };
   const addToCart = async (details) => {
     try {
-      const response = await axoissecure.post('/products/addtocart', {
+      const response = await axoissecure.post('/cart/add', {
         email: User?.email,
         productId: details,
       });
@@ -133,12 +133,19 @@ const Details = () => {
             <div className="pt-2 flex gap-4">
               {User ? (
                 <>
-                  <button
+
+                  {details?.StockStatus === 'Out of Stock' ? <button
+
+                    className="px-6 py-1 bg-red-600 text-white font-semibold text-lg rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  >
+                    Sold Out
+                  </button> : <button
                     onClick={() => openModal(details)}
                     className="px-6 py-1 bg-blue-600 text-white font-semibold text-lg rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
                   >
                     Pay
-                  </button>
+                  </button>}
+
 
                 </>
               ) : (

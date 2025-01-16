@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaUser, FaHome, FaSignOutAlt, FaClipboardList, FaBoxes } from "react-icons/fa";
 import logo from '../assets/Photo/logo (2).png'
 const DashSidebar = () => {
@@ -9,8 +9,9 @@ const DashSidebar = () => {
         { label: "Seller Request", path: "/dashboard/seller", icon: <FaClipboardList /> },
     ];
 
+    const navigate = useNavigate()
     const handleLogout = () => {
-        console.log("Logout triggered");
+        navigate('/dashlogin')
         // Implement logout logic here
     };
 
@@ -19,7 +20,7 @@ const DashSidebar = () => {
             {/* Top Section - Logo */}
             <div>
 
-                <Link to={'/dashboard/overview'}> <div className="flex items-center mb-6">
+                <Link to={'/'}> <div className="flex items-center mb-6">
                     <img
                         src={logo}// Replace with your logo URL
                         alt="Logo"
@@ -50,12 +51,12 @@ const DashSidebar = () => {
                 {/* Shop Information */}
                 <div className="flex items-center mb-4">
                     <img
-                        src="https://via.placeholder.com/50" // Replace with your shop image URL
+                        src={logo} // Replace with your shop image URL
                         alt="Shop"
                         className="w-12 h-12 rounded-full mr-3"
                     />
                     <div>
-                        <h3 className="text-md font-semibold">Shop Name</h3>
+                        <h3 className="text-md font-semibold">ProPlay Accessories</h3>
                         <p className="text-sm text-gray-300">+123-456-7890</p> {/* Replace with dynamic contact number */}
                     </div>
                 </div>

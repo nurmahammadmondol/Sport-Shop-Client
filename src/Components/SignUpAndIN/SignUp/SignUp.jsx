@@ -116,7 +116,7 @@ const SignUp = () => {
               placeholder="Name"
               name="displayName"
               className="input input-bordered"
-              // required
+            // required
             />
           </div>
 
@@ -146,7 +146,7 @@ const SignUp = () => {
             />
           </div>
 
-          <div className="form-control">
+          {/* <div className="form-control">
             <label className="label">
               <span className="label-text">Photo</span>
             </label>
@@ -157,7 +157,7 @@ const SignUp = () => {
               className="input input-bordered"
               required
             />
-          </div>
+          </div> */}
 
           <div className="form-control">
             <label className="cursor-pointer label">

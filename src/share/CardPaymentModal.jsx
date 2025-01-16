@@ -23,21 +23,19 @@ const CardPaymentModal = ({ isOpen, onClose, value }) => {
     console.log("Payment Data: ", data);
 
     try {
-      // Define the API endpoint
-      const apiEndpoint = '/api/payment';
-
-      // Create the data object to send in the POST request
+      // Simulate the payment process (e.g., local validation or mock result)
       const paymentData = {
-        email: User?.email, // Assuming 'email' is part of the form data
-        productIds: value._id, // Assuming 'productId' is part of the form data
-        totalAmount: value.Price, // Assuming 'price' is part of the form data
+        email: User?.email,
+        productIds: value._id,
       };
 
-      // Send POST request to the server
-      const response = await axoissecure.post('/products/order', paymentData);
+      console.log("Simulated Payment Data: ", paymentData);
 
-      if (response.status === 201) {
-        // Show success message from SweetAlert
+      // Simulate success outcome (you can replace this with your logic)
+      const isPaymentSuccessful = true; // Toggle to false for testing failure behavior
+
+      if (isPaymentSuccessful) {
+        // Display success message
         Swal.fire({
           title: "Payment Successful!",
           text: "Your payment was processed successfully.",
@@ -46,16 +44,16 @@ const CardPaymentModal = ({ isOpen, onClose, value }) => {
         }).then(() => {
           // Navigate to the orders page
           navigate(`/myorder`);
-          setOdered(value?._id);  // Update with order ID or value as needed
+          setOdered(value?._id); // Simulate updating the order
           onClose(); // Close the modal or form
         });
       } else {
-        throw new Error('Payment failed');
+        throw new Error("Simulated payment failure");
       }
     } catch (error) {
-      console.error('Error during payment:', error);
+      console.error("Error during payment:", error);
 
-      // Show error message from SweetAlert
+      // Display error message
       Swal.fire({
         title: "Payment Failed",
         text: "There was an issue processing your payment. Please try again.",
@@ -64,6 +62,7 @@ const CardPaymentModal = ({ isOpen, onClose, value }) => {
       });
     }
   };
+
 
   if (!isOpen) return null;
 

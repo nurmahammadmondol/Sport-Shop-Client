@@ -10,12 +10,12 @@ const Navbar = () => {
     <div className="flex lg:flex-row flex-col lg:w-full w-[180px] p-3 lg:items-center gap-2 md:gap-4 lg:gap-7 ">
       <NavLink to="/">Home</NavLink>
       <NavLink to="/Products">Products</NavLink>
-      <NavLink to="/dashboard/overview">Became a Seller</NavLink>
+      <NavLink to="/dashlogin">Became a Seller</NavLink>
       {User && (
         <div className="flex flex-col lg:flex-row lg:items-center gap-4">
 
           <NavLink to="/MyEquipment">My Cart</NavLink>
-          <NavLink to="/myorder">My Order</NavLink>
+          { }
         </div>
       )}
       <NavLink to="/AboutUS">About Us</NavLink>
@@ -24,7 +24,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="navbar">
+    <nav className="navbar  ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -52,7 +52,7 @@ const Navbar = () => {
         </div>
         <Link to="/">
           {" "}
-          <div className="flex gap-1 items-center">
+          <div className="flex  gap-1 items-center">
             <img className="w-20 h-14 hidden md:flex" src={logoImage} alt="" />
             <a className=" text-xl md:text-3xl text-white font-bold rancho-regular">
               ProPlay Accessories
