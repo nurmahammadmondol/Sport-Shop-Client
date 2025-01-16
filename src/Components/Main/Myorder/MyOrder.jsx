@@ -10,15 +10,17 @@ const MyOrder = () => {
   console.log(odred)
   // Fetch all orders and store them in local state
   const { data: allpro } = useQuery({
-    queryKey: ["allpro"],
+    queryKey: ["allprfff", odred],
     queryFn: async () => {
       const res = await axoissecure.get(`/products/${odred}`);
+      // setProducts(res?.data?.data)
       return res?.data?.data || [];
+
     },
   });
 
-  const [products, setProducts] = useState(allpro);
-
+  const [products, setProducts] = useState({ allpro });
+  console.log(products)
   // Cancel order handler
   const handleCancelOrder = (orderId) => {
     Swal.fire({
@@ -31,7 +33,7 @@ const MyOrder = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         // Update the state to remove the product
-        const updatedProducts = products.filter((product) => product._id !== orderId);
+        const updatedProducts = products?.allpro?._id !== orderId;
         setProducts(updatedProducts);
 
         Swal.fire("Removed!", "The order has been removed.", "success");
@@ -59,27 +61,27 @@ const MyOrder = () => {
             <tr key={products?._id}>
               <td className="border border-gray-300 px-4 py-2 text-center">
                 <img
-                  src={products?.Photo}
-                  alt={products?.ItemName}
+                  src={products?.allpro?.Photo}
+                  alt={products?.allpro?.ItemName}
                   className="h-20 w-20 object-cover mx-auto rounded"
                 />
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">
-                {products?.ItemName}
+                {products?.allpro?.ItemName}
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">
-                ৳{products?.Price}
+                ৳{products?.allpro?.Price}
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">
-                {products?.Rating}
+                {products?.allpro?.Rating}
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">
-                {products?.Description}
+                {products?.allpro?.Description}
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">
                 <button
                   className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
-                  onClick={() => handleCancelOrder(products?._id)}
+                  onClick={() => handleCancelOrder(products?.allpro?._id)}
                 >
                   Cancel
                 </button>
