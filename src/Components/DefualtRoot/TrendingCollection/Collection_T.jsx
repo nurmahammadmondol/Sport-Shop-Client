@@ -44,7 +44,7 @@ const Collection_T = () => {
                 </h6>
                 <p className="text-sm text-gray-400">
                   <i class="fa-solid fa-money-check-dollar mr-1"></i>Price :
-                  {Single_Item.Price}$
+                  {Single_Item.Price}৳
                 </p>
                 <p className="text-sm text-gray-400">
                   <i class="fa-regular fa-star mr-1"></i>Rating :

@@ -7,8 +7,9 @@ import axoissecure from "../../../share/Axoisecure";
 const MyOrder = () => {
   const { User, odred } = useContext(AuthContent);
 
+  console.log(odred)
   // Fetch all orders and store them in local state
-  const { data: fetchedProducts = [] } = useQuery({
+  const { data: allpro } = useQuery({
     queryKey: ["allpro"],
     queryFn: async () => {
       const res = await axoissecure.get(`/products/${odred}`);
@@ -16,7 +17,7 @@ const MyOrder = () => {
     },
   });
 
-  const [products, setProducts] = useState(fetchedProducts);
+  const [products, setProducts] = useState(allpro);
 
   // Cancel order handler
   const handleCancelOrder = (orderId) => {
@@ -54,38 +55,38 @@ const MyOrder = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
-              <tr key={product._id}>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  <img
-                    src={product.Photo}
-                    alt={product.ItemName}
-                    className="h-20 w-20 object-cover mx-auto rounded"
-                  />
-                </td>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  {product.ItemName}
-                </td>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  ${product.Price}
-                </td>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  {product.Rating}
-                </td>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  {product.Description}
-                </td>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  <button
-                    className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
-                    onClick={() => handleCancelOrder(product._id)}
-                  >
-                    Cancel
-                  </button>
-                </td>
-              </tr>
-            ))}
-            {products.length === 0 && (
+
+            <tr key={products?._id}>
+              <td className="border border-gray-300 px-4 py-2 text-center">
+                <img
+                  src={products?.Photo}
+                  alt={products?.ItemName}
+                  className="h-20 w-20 object-cover mx-auto rounded"
+                />
+              </td>
+              <td className="border border-gray-300 px-4 py-2 text-center">
+                {products?.ItemName}
+              </td>
+              <td className="border border-gray-300 px-4 py-2 text-center">
+                ৳{products?.Price}
+              </td>
+              <td className="border border-gray-300 px-4 py-2 text-center">
+                {products?.Rating}
+              </td>
+              <td className="border border-gray-300 px-4 py-2 text-center">
+                {products?.Description}
+              </td>
+              <td className="border border-gray-300 px-4 py-2 text-center">
+                <button
+                  className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+                  onClick={() => handleCancelOrder(products?._id)}
+                >
+                  Cancel
+                </button>
+              </td>
+            </tr>
+
+            {products?.length === 0 && (
               <tr>
                 <td
                   colSpan="6"

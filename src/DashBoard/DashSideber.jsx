@@ -6,7 +6,7 @@ const DashSidebar = () => {
     const menuItems = [
         { label: "Overview", path: "/dashboard/overview", icon: <FaHome /> },
         { label: "Product Management", path: "/dashboard/productlist", icon: <FaBoxes /> },
-        { label: "Seller Request", path: "/dashboard/seller", icon: <FaClipboardList /> },
+        // { label: "Seller Request", path: "/dashboard/seller", icon: <FaClipboardList /> },
     ];
 
     const navigate = useNavigate()

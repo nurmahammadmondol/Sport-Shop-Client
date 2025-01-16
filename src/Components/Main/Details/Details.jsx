@@ -116,9 +116,7 @@ const Details = () => {
             </div>
 
             <div className="flex gap-5 md:gap-8 text-gray-500">
-              <small>
-                <i className="fa-brands fa-intercom mr-1"></i> Customization: {details?.Customization || "No"}
-              </small>
+
               <small>
                 <i className="fa-solid fa-message mr-1"></i> Description: {details?.Description || "No description provided"}
               </small>
@@ -155,7 +153,9 @@ const Details = () => {
                 className="px-6 py-1 bg-green-600 text-white font-semibold text-lg rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300"
               >
                 Add to Cart
-              </button> : ''}
+              </button> : <Link to="/Login">
+                <button className="px-6 py-1 bg-green-600 text-white font-semibold text-lg rounded hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-300">  Add to Cart</button>
+              </Link>}
 
             </div>
           </div>

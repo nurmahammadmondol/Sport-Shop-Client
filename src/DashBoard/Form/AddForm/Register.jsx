@@ -187,7 +187,7 @@ const Register = () => {
                     onClick={() => formik.resetForm()}
                     className="w-32 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
                 >
-                    Cancel
+                    Clear
                 </button>
 
                 <button
