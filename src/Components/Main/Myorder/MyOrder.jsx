@@ -13,16 +13,21 @@ const MyOrder = () => {
     queryKey: ["allprfff", odred],
     queryFn: async () => {
       const res = await axoissecure.get(`/products/${odred}`);
-      // setProducts(res?.data?.data)
+      setProducts(res?.data?.data)
       return res?.data?.data || [];
 
     },
   });
 
-  const [products, setProducts] = useState({ allpro });
+  console.log(allpro)
+
+  const [products, setProducts] = useState(allpro);
   console.log(products)
+
+
+  const [iscancel, setIscansel] = useState(false);
   // Cancel order handler
-  const handleCancelOrder = (orderId) => {
+  const handleCancelOrder = () => {
     Swal.fire({
       title: "Are you sure?",
       text: "This will remove the order from your list.",
@@ -32,10 +37,7 @@ const MyOrder = () => {
       cancelButtonText: "No, keep it",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Update the state to remove the product
-        const updatedProducts = products?.allpro?._id !== orderId;
-        setProducts(updatedProducts);
-
+        setIscansel(true)
         Swal.fire("Removed!", "The order has been removed.", "success");
       }
     });
@@ -61,30 +63,37 @@ const MyOrder = () => {
             <tr key={products?._id}>
               <td className="border border-gray-300 px-4 py-2 text-center">
                 <img
-                  src={products?.allpro?.Photo}
+                  src={products?.Photo}
                   alt={products?.allpro?.ItemName}
                   className="h-20 w-20 object-cover mx-auto rounded"
                 />
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">
-                {products?.allpro?.ItemName}
+                {products?.ItemName}
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">
-                ৳{products?.allpro?.Price}
+                ৳{products?.Price}
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">
-                {products?.allpro?.Rating}
+                {products?.Rating}
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">
-                {products?.allpro?.Description}
+                {products?.Description}
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">
-                <button
+
+                {iscancel === true ? <button
+                  className="bg-gray-500 hover:bg-gray-600 text-white py-1 px-3 rounded"
+
+                >
+                  Canceled
+                </button> : <button
                   className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
-                  onClick={() => handleCancelOrder(products?.allpro?._id)}
+                  onClick={() => handleCancelOrder()}
                 >
                   Cancel
-                </button>
+                </button>}
+
               </td>
             </tr>
 
