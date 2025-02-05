@@ -6,9 +6,8 @@
 
 =======
 
-### Live Site: [EquiSports Live](https://example-link.com)
+### Live Site: [EquiSports Live](https://dainty-belekoy-1b713a.netlify.app/)
 
-https://peaceful-rugelach-3344c1.netlify.app
 
 ### Server Site:
 
