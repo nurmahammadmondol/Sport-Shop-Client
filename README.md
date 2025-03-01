@@ -1,6 +1,6 @@
 # ProPlay Accessories: A Sports Equipment Store
 
-### Live Site: [ProPlay Accessories Live](https://dainty-belekoy-1b713a.netlify.app/)
+### Live Site: [ProPlay Accessories Live](https://proplay-accessories-sports-store.netlify.app/)
 
 
 **ProPlay Accessories** is a responsive e-commerce platform designed for sports
